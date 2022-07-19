@@ -1,0 +1,26 @@
+.boxOfficeTable {
+	margin-top: 1em;
+	margin-left: 14em;
+	width: 81%;
+	border-collapse: collapse;
+	background-color: var(--main-light-color);
+}
+.boxOfficeTable td,
+.boxOfficeTable th {
+	padding: 12px 15px;
+	border: 1px solid var(--secondary-color);
+	text-align: center;
+}
+.boxOfficeTable th {
+	color: var(--secondary-color);
+	background-color: var(--customize-color);
+}
+.boxOfficeTable tbody tr:nth-child(even) {
+	background-color: var(--main-third-color);
+}
+.table-page-section {
+	display: flex;
+	margin-top: 1em;
+	height: 2em;
+	justify-content: right;
+}
