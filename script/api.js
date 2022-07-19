@@ -1,4 +1,4 @@
-const API_KEY = "k_01o8qyv8";
+const API_KEY = "Temp";
 let movieList = document.getElementById("movie-list");
 let current_movie_section_label_text = document.querySelector(
 	".current-movie-section-label-text"
@@ -19,13 +19,14 @@ async function getMovie(movieListType) {
 				`https://imdb-api.com/en/API/Top250Movies/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Top 50 Movies";
-
+			needTrim = false;
 			break;
 		case "side-bar-button-top50TVs":
 			response = await fetch(
 				`https://imdb-api.com/en/API/Top250TVs/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Top 50 TVs";
+			needTrim = false;
 			break;
 		case "side-bar-button-popularMovies":
 			response = await fetch(
@@ -235,6 +236,7 @@ async function getMovieDetails(id) {
 //Reset all side bar buttons to their original states
 async function searching() {
 	let response = "";
+	tableContainer.innerHTML = "";
 	switch (search_genreType_button.innerText) {
 		case "All":
 			response = await fetch(
