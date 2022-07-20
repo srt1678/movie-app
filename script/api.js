@@ -19,21 +19,21 @@ async function getMovie(movieListType) {
 				`https://imdb-api.com/en/API/Top250Movies/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Top 50 Movies";
-			needTrim = false;
+			
 			break;
 		case "side-bar-button-top50TVs":
 			response = await fetch(
 				`https://imdb-api.com/en/API/Top250TVs/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Top 50 TVs";
-			needTrim = false;
+			
 			break;
 		case "side-bar-button-popularMovies":
 			response = await fetch(
 				`https://imdb-api.com/en/API/MostPopularMovies/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Most Popular movies";
-			needTrim = false;
+			
 			break;
 		case "side-bar-button-popularTVs":
 			response = await fetch(
@@ -125,7 +125,7 @@ async function getMovieDetails(id) {
 	let html = "";
 	if (data) {
 		html += `
-        <div class="movie-detail-poster-container">
+        	<div class="movie-detail-poster-container">
 				<img class="movie-detail-poster" src="${data.image}" />
 			</div>
 			<button class="movie-detail-return-btn">
@@ -147,17 +147,11 @@ async function getMovieDetails(id) {
 				<h1 class="movie-details-description-title">${data.title}</h1>
 			</div>
 			<div class="overall-subInfo-container">
-				<div class="movie-details-description-subInfo-container">
-                    <h4 class="movie-details-description-subInfo">
-                        &nbsp ${data.year} &nbsp &#xB7 &nbsp
-                    </h4>
-                    <h4 class="movie-details-description-subInfo">
-                        ${data.runtimeStr} &nbsp &#xB7 &nbsp
-                    </h4>
-                    <h4 class="movie-details-description-subInfo">
-                        ${data.contentRating}
-                    </h4>
-                </div>
+                <h4 class="movie-details-description-subInfo">
+					&nbsp ${data.year} &nbsp &#xB7 &nbsp
+					${data.runtimeStr} &nbsp &#xB7 &nbsp
+					${data.contentRating}
+                </h4>
 				<div class="movie-details-description-rating-container">
 					<svg
 						stroke="currentColor"
@@ -174,11 +168,11 @@ async function getMovieDetails(id) {
 							points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"
 						></polygon>
 					</svg>
-					<h4 class="movie-details-description-rating">&nbsp ${data.imDbRating}</h4>
+					&nbsp ${data.imDbRating}
 				</div>
 			</div>
 			<div class="movie-description-container">
-				<h3>
+				<h3 class="movie-description-text">
 					${data.plot}
 				</h3>
 			</div>

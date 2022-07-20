@@ -117,6 +117,6 @@ function removeWatchList(id) {
 }
 
 //Display top 50 movies page when page loaded
-//document.addEventListener("DOMContentLoaded", function(event){
-//    document.getElementById("side-bar-button-top50Movies").click();
-//})
+document.addEventListener("DOMContentLoaded", function(event){
+    document.getElementById("side-bar-button-top50Movies").click();
+})

@@ -96,12 +96,7 @@
 	flex: 1;
 	align-items: center;
 	height: 3em;
-}
-.color-theme-container {
-	display: flex;
-	justify-content: space-between;
-	width: 20%;
-	margin-left: 60%;
+	justify-content: right;
 }
 .custome-color-container {
 	position: relative;
@@ -121,12 +116,12 @@
 	padding-right: 1px;
 	font-size: 150%;
 	transition: 0.2s ease-in-out;
+	margin-right: 0.8em;
 }
 .profile-container {
 	display: flex;
 	height: 3em;
 	align-items: center;
-	margin-left: 1em;
 }
 .profile-button {
 	height: 45px;
