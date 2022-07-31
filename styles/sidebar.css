@@ -30,3 +30,12 @@
 	background-color: var(--customize-color) !important;
 	transform: scale(1.1) !important;
 }
+
+@media screen and (max-width: 800px){
+	.side-bar-container{
+		width: 5em;
+	}
+	.side-bar-boxes-button{
+		font-size: 80%;
+	}
+}

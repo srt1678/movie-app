@@ -232,6 +232,18 @@
 		grid-template-columns: repeat(2, 1fr);
 	}
 }
+@media screen and (max-width: 800px){
+	.current-movie-section-label{
+		margin-left: 9em;
+	}
+	.current-movie-section-lable-placeholder{
+		margin-left: 7em;
+	}
+	.movie-grid-section {
+		margin-left: 7em;
+		grid-template-columns: repeat(2, 1fr);
+	}
+}
 @media screen and (min-width: 1100px) {
 	.movie-grid-section {
 		grid-template-columns: repeat(3, 1fr);

@@ -19,7 +19,7 @@ async function getMovie(movieListType) {
 				`https://imdb-api.com/en/API/Top250Movies/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Top 50 Movies";
-			
+			needTrim = false;
 			break;
 		case "side-bar-button-top50TVs":
 			response = await fetch(
