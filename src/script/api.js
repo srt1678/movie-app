@@ -1,12 +1,4 @@
 const API_KEY = "k_01o8qyv8";
-let movieList = document.getElementById("movie-list");
-let current_movie_section_label_text = document.querySelector(
-	".current-movie-section-label-text"
-);
-let movieDetails = document.getElementById("movie-details");
-let movie_details = document.querySelector(".movie-details");
-let darkBackground = document.querySelector(".dark-background");
-let tableContainer = document.getElementById("boxOfficeTableContainer");
 
 //Display all movies in the movie section
 async function getMovie(movieListType) {

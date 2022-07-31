@@ -1,11 +1,3 @@
-let search_genreType_button = document.querySelector(
-	".search-genreType-button"
-);
-let searchGenrelist = document.querySelector(".search-genreType-list");
-let searchBar = document.getElementById("search-bar");
-let searchGenreBtns = document.getElementsByClassName(
-	"select-search-genreType"
-);
 
 //Search Genre buttons & list
 //Having drop down menu with toggle animation

@@ -1,6 +1,3 @@
-let profileBtns = document.querySelector(".profile-button");
-let profileSection = document.getElementById("profileSection");
-let logInButton = document.querySelector(".logInButton");
 
 //Log in HTML that would be used for both log in & log out
 let logInTemplate = `

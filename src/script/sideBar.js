@@ -1,4 +1,3 @@
-let sideBarBtns = document.getElementsByClassName("side-bar-boxes-button");
 
 //Side Bar buttons
 //Called getMovie API based on the selected button

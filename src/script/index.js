@@ -1,9 +1,3 @@
-let root = document.querySelector(":root");
-let custome_color_button = document.querySelector(".custome-color-button");
-let customeColorList = document.querySelector(".select-custome-color-list");
-let customeColorBtns = document.getElementsByClassName(
-	"select-custome-color-type"
-);
 let currentSideBarBtnsId = "";
 let currentUser = "";
 

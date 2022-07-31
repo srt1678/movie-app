@@ -1,5 +1,3 @@
-let watchList = [];
-let uniqueWatchList = [];
 
 //Add movie to watch lists
 async function addWatchList(id) {
