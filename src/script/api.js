@@ -1,4 +1,4 @@
-const API_KEY = "Temp";
+const API_KEY = "k_01o8qyv8";
 let movieList = document.getElementById("movie-list");
 let current_movie_section_label_text = document.querySelector(
 	".current-movie-section-label-text"
