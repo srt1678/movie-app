@@ -1,5 +1,9 @@
-let currentSideBarBtnsId = "";
-let currentUser = "";
+import {root, custome_color_button, customeColorList, customeColorBtns, profileBtns} from "./dom-loader.js";
+import {resetSideBarButton} from "./sideBar.js";
+import { getMovieDetails } from "./api.js";
+import {addWatchList, removeWatchList} from "./watchList.js";
+export let currentSideBarBtnsId = "";
+export let currentUser = "";
 
 document
 	.querySelector(".dark-light-mode-button")
@@ -18,6 +22,10 @@ document
 			root.style.setProperty("--main-third-color", " rgb(89, 91, 91)");
 		}
 		resetSideBarButton(currentSideBarBtnsId);
+		if(!currentUser){
+			profileBtns.style.color =
+				getComputedStyle(root).getPropertyValue("--secondary-color");
+		}
 	});
 
 //Customize color selector
@@ -45,7 +53,7 @@ for (let i = 0; i < customeColorBtns.length; i++) {
 
 //Added alert text when added movie/TVs to the watchlist
 //Alert text will disappeared after certain seconds
-async function showAddedMovieNotice() {
+export async function showAddedMovieNotice() {
 	let addedWatchListText = document.querySelector(
 		".movie-added-watchList-text"
 	);
@@ -69,45 +77,39 @@ function vanishAddedWatchListText(time) {
 	});
 }
 
-//Remove movie/TVs from the watchlist after click on trash icon
-function removeWatchList(id) {
-	let html = "";
-	let tempList = [];
-	let tempCurrentUser = JSON.parse(localStorage.getItem(currentUser));
-	let tempPassword = tempCurrentUser.password;
-	let tempWatchList = tempCurrentUser.personalWatchList;
-	for (let i = 0; i < tempWatchList.length; i++) {
-		if (tempWatchList[i].id !== id.id) {
-			html += `
-                <div class="movie-grid-card" onclick="getMovieDetails(id)" id="${tempWatchList[i].id}">
-                    <img class="movie-poster" src="${tempWatchList[i].image}" id="${tempWatchList[i].id}Img"/>
-                    <div class="movie-title" id="${tempWatchList[i].title}Title">
-                        <h4 class="movie-text">${tempWatchList[i].title}</h4>
-                    </div>
-                    <button class="watchlist-movie-button" onclick="removeWatchList(${tempWatchList[i].id}); event.stopPropagation()">
-                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M5 20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8h2V6h-4V4a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v2H3v2h2zM9 4h6v2H9zM8 8h9v12H7V8z"></path><path d="M9 10h2v8H9zm4 0h2v8h-2z"></path></svg>
-                    </button>
-                </div>
-            `;
-			tempList.push({
-				id: tempWatchList[i].id,
-				title: tempWatchList[i].title,
-				image: tempWatchList[i].image,
-			});
+//Update the info of currently selected side bar button
+export function updateCurrentSideBarBtnsId(sideBarId){
+	currentSideBarBtnsId = sideBarId;
+}
+
+//Update the info of currently selected user name
+export function updateCurrentUser(userName){
+	currentUser = userName;
+}
+
+//addEventListener handler for html in js
+export function eventListenerHandler(type, query){
+	if(type === "movie"){
+		for(let i = 0; i < query.length; i++){
+			query[i].addEventListener("click", () => getMovieDetails(query[i].id))
 		}
 	}
-	let tempObject = {
-		password: tempPassword,
-		personalWatchList: tempList,
-	};
-	localStorage.setItem(currentUser, JSON.stringify(tempObject));
-	for (let i = 0; i < watchList.length; i++) {
-		if (watchList[i].id === id.id) {
-			watchList.splice(i, 1);
-			i--;
+	if(type === "watchlist"){
+		for(let i = 0; i < query.length; i++){
+			query[i].addEventListener("click", (event) => {
+				event.stopPropagation();
+				addWatchList(query[i].id);
+			})
 		}
 	}
-	movieList.innerHTML = html;
+	if(type === "remove"){
+		for(let i = 0; i < query.length; i++){
+			query[i].addEventListener("click", (event) => {
+				event.stopPropagation();
+				removeWatchList(query[i].id);
+			})
+		}
+	}
 }
 
 //Display top 50 movies page when page loaded

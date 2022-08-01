@@ -1,3 +1,6 @@
+import {root, profileBtns, profileSection, movieList, current_movie_section_label_text, tableContainer} from "./dom-loader.js";
+import {resetAllSideBar} from "./sideBar.js";
+import {currentUser, updateCurrentUser} from "./index.js";
 
 //Log in HTML that would be used for both log in & log out
 let logInTemplate = `
@@ -23,7 +26,7 @@ let logInTemplate = `
         </div>
     </div>
     <div class="logInButtonContainer">
-        <button class="logInButton" onclick="logIn()">
+        <button class="logInButton">
             Log In
         </button>
     </div>
@@ -37,13 +40,14 @@ profileBtns.addEventListener("click", () => {
 	if (!currentUser) {
 		current_movie_section_label_text.innerText = "Sign Up / Login";
 		profileSection.innerHTML = logInTemplate;
+		document.querySelector(".logInButton").addEventListener("click", () => logIn());
 	} else {
 		alreadyLogIn();
 	}
 });
 
 //Algorithm for log in process
-function logIn() {
+export function logIn() {
 	let userNameInputBar = document.getElementById("userNameInputBar");
 	let passwordInputBar = document.getElementById("passwordInputBar");
 	let errorMessageContainer = document.querySelector(
@@ -73,7 +77,7 @@ function logIn() {
 				"Error! Wrong password!";
 			return;
 		}
-		currentUser = userNameInputBar.value;
+		updateCurrentUser(userNameInputBar.value);
 		alreadyLogIn();
 		profileBtns.style.color =
 			getComputedStyle(root).getPropertyValue("--customize-color");
@@ -99,18 +103,20 @@ function alreadyLogIn() {
             </div>
         </div>
         <div class="signOutButtonContainer">
-            <button class="signOutButton" onclick="signOut()">
+            <button class="signOutButton">
                 Sign Out
             </button>
         </div>
     `;
+	document.querySelector(".signOutButton").addEventListener("click", () => signOut())
 }
 
 //When Sign Out button is clicked
-function signOut() {
-	currentUser = "";
+export function signOut() {
+	updateCurrentUser("");
 	current_movie_section_label_text.innerText = "Sign Up / Login";
 	profileSection.innerHTML = logInTemplate;
+	document.querySelector(".logInButton").addEventListener("click", () => logIn());
 	profileBtns.style.color =
 		getComputedStyle(root).getPropertyValue("--secondary-color");
 }

@@ -1,3 +1,5 @@
+import {search_genreType_button, searchGenrelist, searchBar, searchGenreBtns} from "./dom-loader.js";
+import {searching} from "./api.js"
 
 //Search Genre buttons & list
 //Having drop down menu with toggle animation

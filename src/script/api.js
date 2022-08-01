@@ -1,7 +1,21 @@
-const API_KEY = "Temp";
+const API_KEY = "k_01o8qyv8";
+import {
+	movieList,
+	current_movie_section_label_text,
+	movieDetails,
+	movie_details,
+	darkBackground,
+	tableContainer,
+	profileSection,
+	search_genreType_button,
+	searchBar,
+} from "./dom-loader.js";
+import { resetAllSideBar } from "./sideBar.js";
+import { getWatchList } from "./watchList.js";
+import { eventListenerHandler } from "./index.js";
 
 //Display all movies in the movie section
-async function getMovie(movieListType) {
+export async function getMovie(movieListType) {
 	profileSection.innerHTML = "";
 	let response = "";
 	let needTrim = true;
@@ -17,14 +31,14 @@ async function getMovie(movieListType) {
 				`https://imdb-api.com/en/API/Top250TVs/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Top 50 TVs";
-			
+
 			break;
 		case "side-bar-button-popularMovies":
 			response = await fetch(
 				`https://imdb-api.com/en/API/MostPopularMovies/${API_KEY}`
 			);
 			current_movie_section_label_text.innerText = "Most Popular movies";
-			
+
 			break;
 		case "side-bar-button-popularTVs":
 			response = await fetch(
@@ -61,7 +75,7 @@ async function getMovie(movieListType) {
 		data.items.forEach((movie) => {
 			if (count <= 50) {
 				html += `
-                    <div class="movie-grid-card" onclick="getMovieDetails(id)" id="${movie.id}">
+					<div class="movie-grid-card" id="${movie.id}">
                         <img class="movie-poster" src="
                 `;
 				if (needTrim) {
@@ -87,22 +101,28 @@ async function getMovie(movieListType) {
 				html += `
                             </h4>
                         </div>
-                        <button class="watchlist-movie-button" onclick="addWatchList(${movie.id}); event.stopPropagation()">
-                        <svg stroke="currentColor" fill="currentColor" stroke-width="0" t="1551322312294" viewBox="0 0 1024 1024" version="1.1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><defs></defs><path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"></path><path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"></path></svg>
-                    </button>
+                        <button class="watchlist-movie-button" id="${movie.id}">
+                        	<svg stroke="currentColor" fill="currentColor" stroke-width="0" t="1551322312294" viewBox="0 0 1024 1024" version="1.1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><defs></defs><path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"></path><path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"></path></svg>
+                    	</button>
                     </div>
                 `;
 				count++;
 			}
 		});
 		movieList.innerHTML = html;
+		let getmoviedetails = document.querySelectorAll(".movie-grid-card");
+		eventListenerHandler("movie", getmoviedetails);
+		let watchlistMovieButton = document.querySelectorAll(
+			".watchlist-movie-button"
+		);
+		eventListenerHandler("watchlist", watchlistMovieButton);
 	} else {
 		console.log("Unknown error!");
 	}
 }
 
 //Display the movie details after select a movie
-async function getMovieDetails(id) {
+export async function getMovieDetails(id) {
 	movie_details.style.visibility = "visible";
 	darkBackground.style.visibility = "visible";
 	const response = await fetch(
@@ -219,7 +239,7 @@ async function getMovieDetails(id) {
 
 //Search the movie based on the genre type and the search bar input
 //Reset all side bar buttons to their original states
-async function searching() {
+export async function searching() {
 	let response = "";
 	tableContainer.innerHTML = "";
 	switch (search_genreType_button.innerText) {
@@ -252,14 +272,17 @@ async function searching() {
 		data.results.forEach((movie) => {
 			if (movie.image.length >= 84) {
 				html += `
-                <div class="movie-grid-card" onclick="getMovieDetails(id)" id="${movie.id}">
-                            <img class="movie-poster" src="${movie.image}">
-                            <div class="movie-title">
-                                <h4 class="movie-text">
-                                    ${movie.title}
-                                </h4>
-                            </div>
-                        </div>
+                	<div class="movie-grid-card" id="${movie.id}">
+						<img class="movie-poster" src="${movie.image}" id="${movie.id}Img">
+						<div class="movie-title" id="${movie.id}Title">
+							<h4 class="movie-text">
+								${movie.title}
+							</h4>
+						</div>
+						<button class="watchlist-movie-button" id="${movie.id}">
+                        	<svg stroke="currentColor" fill="currentColor" stroke-width="0" t="1551322312294" viewBox="0 0 1024 1024" version="1.1" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><defs></defs><path d="M474 152m8 0l60 0q8 0 8 8l0 704q0 8-8 8l-60 0q-8 0-8-8l0-704q0-8 8-8Z"></path><path d="M168 474m8 0l672 0q8 0 8 8l0 60q0 8-8 8l-672 0q-8 0-8-8l0-60q0-8 8-8Z"></path></svg>
+                    	</button>
+					</div>
                 `;
 			}
 		});
@@ -268,6 +291,12 @@ async function searching() {
 		current_movie_section_label_text.innerText = `Unable to find \"${searchBar.value}\"`;
 	}
 	movieList.innerHTML = html;
+	let getmoviedetails = document.querySelectorAll(".movie-grid-card");
+	eventListenerHandler("movie", getmoviedetails);
+	let watchlistMovieButton = document.querySelectorAll(
+		".watchlist-movie-button"
+	);
+	eventListenerHandler("watchlist", watchlistMovieButton);
 	resetAllSideBar();
 }
 

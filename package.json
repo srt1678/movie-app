@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack src/script/index.js dist/bundle.js"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,5 @@
   "homepage": "https://github.com/srt1678/movie-app#readme",
   "devDependencies": {
     "webpack": "^5.74.0"
-  },
-  "dependencies": {
-    "dotenv": "^16.0.1"
   }
 }
